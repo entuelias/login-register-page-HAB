@@ -2,17 +2,17 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
-// const authRoutes = require('./src/routes/authRoutes');
+const authRoutes = require('./src/routes/authRoutes');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
-  res.json({ ok: true, message: 'Server running' });
+  res.json({ ok: true, message: 'Server is running' });
 });
 
 module.exports = app;
