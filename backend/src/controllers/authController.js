@@ -1,6 +1,6 @@
 // register logic
 const User = require('../models/User');
-const jwt = require('jsonwebtoken');
+const { signToken } = require('../utils/token'); 
 
 
 async function register(req, res) {
@@ -14,7 +14,8 @@ async function register(req, res) {
 
     // 2) check existing
     const existing = await User.findOne({ email });
-    if (existing) return res.status(400).json({ error: 'Email already registered' });
+    if (existing) return res.status
+    (400).json({ error: 'Email already registered' });
 
     
     // 4) create user
@@ -26,7 +27,8 @@ async function register(req, res) {
     });
 
     // 5) sign token
-    const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    const token = signToken({ userId: user._id, email: user.email });
+   
 
     // 6) response (do not send password)
     return res.status(201).json({
